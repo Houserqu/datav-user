@@ -1,3 +1,12 @@
 {
-  "extends": "eslint-config-egg"
+  "extends": "eslint-config-egg",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "destructuring": true,
+      "spread": true,
+      "restParams": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
 }
