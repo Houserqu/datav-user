@@ -4,14 +4,15 @@ module.exports = {
   /**
    * 返回操作成功请求
    * @param {*} data 返回数据
+   * @param {*} msg 返回数据
    */
-  resSuccess(data = null) {
+  resSuccess(data = null, msg = '成功') {
     const { ctx } = this;
 
     ctx.status = 200;
     ctx.body = {
       success: true,
-      msg: '成功',
+      msg,
       data,
     };
   },
