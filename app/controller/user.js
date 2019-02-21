@@ -17,10 +17,8 @@ const loginRule = {
 class UserController extends Controller {
   async create() {
     const ctx = this.ctx;
-    // 校验 `ctx.request.body` 是否符合我们预期的格式
-    // 如果参数校验未通过，将会抛出一个 status = 422 的异常
     ctx.validate(createRule, ctx.request.body);
-    // 调用 service 创建一个 topic
+
     const id = await ctx.service.user.create(ctx.request.body);
     // 设置响应体和状态码
     ctx.body = {
@@ -41,6 +39,35 @@ class UserController extends Controller {
       ctx.helper.resSuccess(userInfo);
     } else {
       ctx.helper.resError('账号或密码错误');
+    }
+  }
+
+  async curUserInfo() {
+    const { ctx: { helper, service, headers } } = this;
+    const userId = headers['certificate-userid'];
+
+    try {
+      const res = await service.user.getUser(userId);
+      helper.resSuccess({
+        mail: res.mail,
+        nickname: res.nickname,
+      });
+    } catch (e) {
+      helper.resError(e.message);
+    }
+  }
+
+  // 单个资源
+  async show() {
+    const { ctx: { helper, service, params } } = this;
+    try {
+      const res = await service.user.getUser(parseInt(params.id));
+      helper.resSuccess({
+        mail: res.mail,
+        nickname: res.nickname,
+      });
+    } catch (e) {
+      helper.resError(e.message);
     }
   }
 }

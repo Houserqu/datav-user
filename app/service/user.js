@@ -17,6 +17,15 @@ class UserService extends Service {
     return result;
   }
 
+  async getUser(userId) {
+    const result = await this.app.mysql.get('user', { id: userId });
+    if (!result) {
+      throw new Error('数据不存在');
+    }
+
+    return result;
+  }
+
   async login(params) {
     const userInfo = await this.app.mysql.get('user', { mail: params.mail });
 
@@ -24,6 +33,7 @@ class UserService extends Service {
       return {
         nickname: userInfo.nickname,
         mail: userInfo.mail,
+        id: userInfo.id,
       };
     }
     return null;
