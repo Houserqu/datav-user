@@ -6,6 +6,8 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1544242497113_8955';
 
+  config.AUTH_API_DOMAIN = 'http://127.0.0.1:7003';
+
   // add your config here
   config.middleware = [];
 

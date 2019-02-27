@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const fetch = require('node-fetch');
 
 // 定义创建接口的请求参数规则
 const createRule = {
@@ -43,14 +44,21 @@ class UserController extends Controller {
   }
 
   async curUserInfo() {
-    const { ctx: { helper, service, headers } } = this;
+    const { ctx: { helper, service, headers, app: { config } } } = this;
     const userId = headers['certificate-userid'];
 
     try {
       const res = await service.user.getUser(userId);
+      const authRes = await fetch(`${config.AUTH_API_DOMAIN}/api/auth/user/${userId}`);
+      const result = await authRes.json();
+      console.log(result);
+
       helper.resSuccess({
-        mail: res.mail,
-        nickname: res.nickname,
+        userInfo: {
+          mail: res.mail,
+          nickname: res.nickname,
+        },
+        permission: result.data
       });
     } catch (e) {
       helper.resError(e.message);

@@ -8,7 +8,8 @@
     "egg": "^2.2.1",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.5.0",
-    "egg-validate": "^2.0.2"
+    "egg-validate": "^2.0.2",
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

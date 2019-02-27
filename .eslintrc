@@ -8,5 +8,8 @@
       "restParams": true,
       "experimentalObjectRestSpread": true
     }
+  },
+  "globals": {
+    "fetch": true
   }
 }
